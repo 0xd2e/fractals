@@ -147,7 +147,7 @@ def lindemayer(lvl, length, init_angle, angle, init_state,
     Displays the plot of calculated sequence of points.
 
 
-    This fuction does not return any value.
+    This function does not return any value.
     """
 
     states = generate_pattern(lvl, init_state, rewrite_rules)

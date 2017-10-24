@@ -26,7 +26,7 @@ def plotf(x, y, color, title):
     Displays the scatter plot of the given points.
 
 
-    This fuction does not return any value.
+    This function does not return any value.
     """
 
     plt.figure(num=title, facecolor='white')
@@ -71,7 +71,7 @@ def ifs(lvl, p, a, b, c, d, e, f,
     Calculates coordinates and displays the points.
 
 
-    This fuction does not return any value.
+    This function does not return any value.
     """
 
     lvl += 1
@@ -169,7 +169,7 @@ def clifford_attractor(lvl, a, b, c, d, color='#045FB4'):
     Calculates coordinates and displays the points.
 
 
-    This fuction does not return any value.
+    This function does not return any value.
     """
 
     lvl += 1
