@@ -10,17 +10,22 @@ import matplotlib.pyplot as plt
 PRECISION = np.float32
 
 
-def plotf(x, y, color, title):
+def plotf(x, y, win_title='ITERATED FUNCTION SYSTEM FRACTAL', color='#0080FF'):
     """
     Inputs:
 
-    x, y -- tuple, list, or numpy array of numbers
-         -- must have the same length
-         -- coordinates of points on a plane
+    x, y
+    -- tuple, list, or numpy array of numbers
+    -- must have the same length
+    -- coordinates of points on a plane
 
-    color -- string, valid matplotlib color
+    win_title
+    -- string, title of the plot window
+    -- default: ITERATED FUNCTION SYSTEM FRACTAL
 
-    title -- string, title of the plot
+    color
+    -- string, valid matplotlib color
+    -- default: #0080FF
 
 
     Displays the scatter plot of the given points.
@@ -29,11 +34,14 @@ def plotf(x, y, color, title):
     This function does not return any value.
     """
 
-    plt.figure(num=title, facecolor='white')
+    plt.ioff()
+
+    plt.figure(num=win_title, facecolor='white', frameon=False, clear=True)
 
     plt.style.use('fivethirtyeight')
-    plt.axis('equal')
+    plt.grid(False)
     plt.axis('off')
+    plt.axis('equal')
 
     plot_options = {
         'color': color,
@@ -50,36 +58,30 @@ def plotf(x, y, color, title):
     plt.show()
 
 
-def ifs(lvl, p, a, b, c, d, e, f,
-        title='ITERATED FUNCTION SYSTEM FRACTAL', color='#0080FF'):
+def ifs(lvl, p, a, b, c, d, e, f):
     """
     Inputs:
 
     lvl -- integer, number of iterations
 
-    p, a, b, c, d, e, f -- tuple, list, or numpy array of numbers
-                        -- IFS parameters
-                        -- all must have the same length
-                        -- p must be sorted in descending order and other
-                           parameters must be adjusted accordingly
-
-    title -- string, title of the plot
-
-    color -- string, valid matplotlib color
+    p, a, b, c, d, e, f
+    -- tuple, list, or numpy array of numbers
+    -- IFS parameters
+    -- all must have the same length
+    -- p must be sorted in descending order and other
+       parameters must be adjusted accordingly
 
 
-    Calculates coordinates and displays the points.
-
-
-    This function does not return any value.
+    Return a tuple with two 1D numpy arrays, each of size lvl + 1,
+    with calculated xy coordinates.
     """
 
     lvl += 1
     param_indexes = range(len(p))
 
     # Containers to store xy components/coordinates of points on a plane
-    x = np.zeros((lvl,), dtype=PRECISION)
-    y = np.zeros((lvl,), dtype=PRECISION)
+    x = np.zeros(shape=lvl, dtype=PRECISION)
+    y = np.zeros(shape=lvl, dtype=PRECISION)
 
     for i in range(1, lvl):
 
@@ -95,9 +97,7 @@ def ifs(lvl, p, a, b, c, d, e, f,
                 y[i] = c[j] * x[i - 1] + d[j] * y[i - 1] + f[j]
                 break
 
-    del lvl, p, a, b, c, d, e, f, i, j, param_indexes, temp
-
-    plotf(x, y, color, title)
+    return x, y
 
 
 def spiral(lvl):
@@ -108,7 +108,8 @@ def spiral(lvl):
     d = (0.859848, 0.053030, 0.181818)
     e = (1.758647, -6.721654, 6.086107)
     f = (1.408065, 1.377236, 1.568035)
-    ifs(lvl, p, a, b, c, d, e, f, 'IFS SPIRAL')
+    x, y = ifs(lvl, p, a, b, c, d, e, f)
+    plotf(x, y, 'IFS SPIRAL')
 
 
 def dragon(lvl):
@@ -119,7 +120,8 @@ def dragon(lvl):
     d = (0.864198, -0.377778)
     e = (-1.882290, 0.785360)
     f = (-0.110607, 8.095795)
-    ifs(lvl, p, a, b, c, d, e, f, 'IFS DRAGON')
+    x, y = ifs(lvl, p, a, b, c, d, e, f)
+    plotf(x, y, 'IFS DRAGON')
 
 
 def fern_leaf(lvl):
@@ -130,7 +132,8 @@ def fern_leaf(lvl):
     d = (0.85, 0.24, 0.22, 0.16)
     e = (0.0, 0.0, 0.0, 0.0)
     f = (1.6, 0.44, 1.6, 0.0)
-    ifs(lvl, p, a, b, c, d, e, f, 'IFS FERN LEAF')
+    x, y = ifs(lvl, p, a, b, c, d, e, f)
+    plotf(x, y, 'IFS FERN LEAF')
 
 
 def maple_leaf(lvl):
@@ -141,7 +144,8 @@ def maple_leaf(lvl):
     d = (0.5, 0.47, 0.51, 0.51)
     e = (1.49, -1.62, 0.02, -0.08)
     f = (-0.75, -0.74, 1.62, -1.31)
-    ifs(lvl, p, a, b, c, d, e, f, 'IFS MAPLE LEAF')
+    x, y = ifs(lvl, p, a, b, c, d, e, f)
+    plotf(x, y, 'IFS MAPLE LEAF')
 
 
 def sierpinski_triangle(lvl):
@@ -152,7 +156,8 @@ def sierpinski_triangle(lvl):
     d = (0.5, 0.5, 0.5)
     e = (0.5, -0.5, -0.5)
     f = (-0.5, 0.5, -0.5)
-    ifs(lvl, p, a, b, c, d, e, f, 'IFS SIERPINSKI TRIANGLE')
+    x, y = ifs(lvl, p, a, b, c, d, e, f)
+    plotf(x, y, 'IFS SIERPINSKI TRIANGLE')
 
 
 def clifford_attractor(lvl, a, b, c, d, color='#045FB4'):
