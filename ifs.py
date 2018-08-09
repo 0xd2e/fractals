@@ -6,6 +6,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+from numba import jit
+
 
 PRECISION = np.float32
 
@@ -58,6 +60,7 @@ def plotf(x, y, win_title='ITERATED FUNCTION SYSTEM FRACTAL', color='#0080FF'):
     plt.show()
 
 
+@jit(nopython=True)
 def ifs(lvl, p, a, b, c, d, e, f):
     """
     Inputs:
