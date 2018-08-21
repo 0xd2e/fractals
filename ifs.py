@@ -163,7 +163,8 @@ def sierpinski_triangle(lvl):
     plotf(x, y, 'IFS SIERPINSKI TRIANGLE')
 
 
-def clifford_attractor(lvl, a, b, c, d, color='#045FB4'):
+@jit(nopython=True)
+def clifford_attractor(lvl, a, b, c, d):
     """
     Inputs:
 
@@ -171,26 +172,22 @@ def clifford_attractor(lvl, a, b, c, d, color='#045FB4'):
 
     a, b, c, d -- numeric parameters
 
-    color -- string, valid matplotlib color
 
-
-    Calculates coordinates and displays the points.
-
-
-    This function does not return any value.
+    Return a tuple with two 1D numpy arrays, each of size lvl + 1,
+    with calculated xy coordinates.
     """
 
     lvl += 1
 
     # Containers to store xy components/coordinates of points on a plane
-    x = np.zeros((lvl,), dtype=PRECISION)
-    y = np.zeros((lvl,), dtype=PRECISION)
+    x = np.zeros(shape=lvl, dtype=PRECISION)
+    y = np.zeros(shape=lvl, dtype=PRECISION)
 
     for i in range(1, lvl):
         x[i] = np.sin(a * y[i - 1]) + c * np.cos(a * x[i - 1])
         y[i] = np.sin(b * x[i - 1]) + d * np.cos(b * y[i - 1])
 
-    plotf(x, y, color, 'CLIFFORD ATTRACTOR')
+    return x, y
 
 
 if __name__ == '__main__':
@@ -199,6 +196,6 @@ if __name__ == '__main__':
     fern_leaf(60000)
     # maple_leaf(90000)
     # sierpinski_triangle(90000)
-    # clifford_attractor(100000, 1.5, -1.8, 1.6, 0.9)
-    clifford_attractor(90000, 1.7, 1.7, 0.06, 1.2)
-    # clifford_attractor(100000, -1.4, 1.6, 1.0, 0.7)
+    # plotf(*clifford_attractor(100000, 1.5, -1.8, 1.6, 0.9), 'CLIFFORD ATTRACTOR', '#045FB4')
+    plotf(*clifford_attractor(90000, 1.7, 1.7, 0.06, 1.2), 'CLIFFORD ATTRACTOR', '#045FB4')
+    # plotf(*clifford_attractor(100000, -1.4, 1.6, 1.0, 0.7), 'CLIFFORD ATTRACTOR', '#045FB4')
