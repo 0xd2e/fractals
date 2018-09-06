@@ -8,3 +8,4 @@ All patterns and parameters are taken from either [wikipedia.org](https://www.wi
  * Python 3
  * Numpy
  * Matplotlib
+ * Numba
