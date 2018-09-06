@@ -166,10 +166,14 @@ def lindemayer(lvl, length, init_angle, angle, init_state,
     states = generate_pattern(lvl, init_state, rewrite_rules)
     points = generate_points(init_angle, angle, length, states)
 
-    plt.figure(num=title, facecolor='white')
+    plt.ioff()
 
-    plt.axis('equal')
+    plt.figure(num=title, facecolor='white', frameon=False, clear=True)
+
+    plt.style.use('fivethirtyeight')
+    plt.grid(False)
     plt.axis('off')
+    plt.axis('equal')
 
     plot_options = {
         'color': color,
