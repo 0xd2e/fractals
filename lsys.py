@@ -14,10 +14,11 @@ def calc_rot_matrix(angle):
     """
     Input:
 
-    angle -- integer or float number
-          -- rotation angle in radians
-          -- positive number gives counter-clockwise direction of rotation (turns left)
-          -- negative number gives clockwise direction of rotation (turns right)
+    angle
+    -- integer or float number
+    -- rotation angle in radians
+    -- positive number gives counter-clockwise direction of rotation (turns left)
+    -- negative number gives clockwise direction of rotation (turns right)
 
 
     Returns 2x2 numpy array of floats, a 2D rotation matrix.
@@ -31,14 +32,16 @@ def generate_pattern(lvl, states, rewrite_rules):
     """
     Inputs:
 
-    lvl -- integer number
-        -- the number of times (iterations) rewrite rules will be applied
+    lvl
+    -- integer number
+    -- the number of times (iterations) rewrite rules will be applied
 
     states -- string, the initial state (axiom) of the system
 
-    rewrite_rules -- dictionary
-                  -- keys (character) -> symbols
-                  -- values (string) -> replacement rules
+    rewrite_rules
+    -- dictionary
+    -- keys (character) -> symbols
+    -- values (string) -> replacement rules
 
 
     Returns string of symbols.
@@ -60,15 +63,18 @@ def generate_points(alpha, theta, length, states):
     """
     Inputs:
 
-    alpha -- integer or float number
-          -- angle (in degrees) between the positive x axis
-             and initial displacement vector
+    alpha
+    -- integer or float number
+    -- angle (in degrees) between the positive x axis
+       and initial displacement vector
 
-    theta -- integer or float number
-          -- angle (in degrees) of a single rotation
+    theta
+    -- integer or float number
+    -- angle (in degrees) of a single rotation
 
-    length -- integer or float number
-           -- length of a displacement vector for one step
+    length
+    -- integer or float number
+    -- length of a displacement vector for one step
 
     states -- string of symbols
 
@@ -78,10 +84,10 @@ def generate_points(alpha, theta, length, states):
 
     Notes:
 
-    -- Initial displacement vector starting point is allways
+    ** Initial displacement vector starting point is allways
        in the origin of the coordinate system.
 
-    -- Only character F in states (alphabet) generates a new point.
+    ** Only character F in states (alphabet) generates a new point.
     """
 
     # Convert angles from degrees to radians
@@ -91,6 +97,8 @@ def generate_points(alpha, theta, length, states):
     # Displacement vector, 2x1 numpy array
     vec = np.array([[np.cos(alpha)], [np.sin(alpha)]], dtype=PRECISION)
     vec_len = np.sqrt(vec[0] ** 2 + vec[1] ** 2)
+
+    # Rescale displacement vector
     vec = vec / vec_len * length
 
     # Rotation matrices for positive and negative angles
@@ -98,7 +106,7 @@ def generate_points(alpha, theta, length, states):
     rot_right = calc_rot_matrix(-theta)
 
     # Container to store xy components/coordinates of points on a plane
-    points = np.zeros((2, states.count('F') + 1), dtype=PRECISION)
+    points = np.zeros(shape=(2, states.count('F') + 1), dtype=PRECISION)
 
     point_index = 1
 
@@ -119,19 +127,23 @@ def lindemayer(lvl, length, init_angle, angle, init_state,
     """
     Inputs:
 
-    lvl -- integer number
-        -- the number of times (iterations) rewrite rules will be applied
+    lvl
+    -- integer number
+    -- the number of times (iterations) rewrite rules will be applied
 
-    length -- integer or float number
-           -- length of a displacement vector of each step
+    length
+    -- integer or float number
+    -- length of a displacement vector of each step
 
-    init_angle -- integer or float number
-               -- initial angle (in degrees) measured from the positive x axis
+    init_angle
+    -- integer or float number
+    -- initial angle (in degrees) measured from the positive x axis
 
-    angle -- integer or float number
-          -- angle (in degrees) of a single rotation
-          -- positive number gives counter-clockwise direction of rotation (turns left)
-          -- negative number gives clockwise direction of rotation (turns right)
+    angle
+    -- integer or float number
+    -- angle (in degrees) of a single rotation
+    -- positive number gives counter-clockwise direction of rotation (turns left)
+    -- negative number gives clockwise direction of rotation (turns right)
 
     init_state -- string, the initial state (axiom) of the system
 
@@ -139,9 +151,10 @@ def lindemayer(lvl, length, init_angle, angle, init_state,
 
     color -- string, valid matplotlib color
 
-    rewrite_rules -- keyword arguments
-                  -- keys (character) hold flags/symbols
-                  -- values (string) hold rules for production/replacement
+    rewrite_rules
+    -- keyword arguments
+    -- keys (character) hold flags/symbols
+    -- values (string) hold rules for production/replacement
 
 
     Displays the plot of calculated sequence of points.
